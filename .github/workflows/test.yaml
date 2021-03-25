@@ -16,7 +16,7 @@ jobs:
         python-version: 3.8
     - name: test
       run: | 
-        pip install tensorflow wandb numpy
+        pip install tensorflow wandb numpy tabulate requests pandas
         python train.py
       env:
         WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
@@ -25,6 +25,7 @@ jobs:
   
     - name: Get Runs Using SHA
       uses: machine-learning-apps/wandb-action@master
+      id: wandb
       with:
         PROJECT_NAME: ${{ format('{0}/{1}', secrets.WANDB_ENTITY, secrets.WANDB_PROJECT) }}
         FILTER_GITHUB_SHA: ${{ github.sha }}
@@ -40,3 +41,11 @@ jobs:
       run: echo "PR number is $PRNUM"
       env: 
         PRNUM: ${{ github.event.pull_request.number }}
+
+    - name: display statistics
+      if: steps.wandb.outputs.BOOL_COMPLETE == 'true'
+      run: |
+        python _action/wandb_results.py
+      env:
+        PR_NUM: ${{ github.event.pull_request.number }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
