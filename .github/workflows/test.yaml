@@ -35,3 +35,7 @@ jobs:
 
     - name: See metrics
       run: cat wandb_report.csv
+
+    - name: See PR Number
+      env: echo "PR number is $PRNUM"
+        PRNUM: ${{ github.event.pull_request.number }}
