@@ -16,7 +16,7 @@ jobs:
         python-version: 3.8
     - name: test
       run: | 
-        pip install tensorflow wandb numpy tabulate requests pandas
+        pip install wheel tensorflow wandb numpy tabulate requests pandas
         python train.py
       env:
         WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
