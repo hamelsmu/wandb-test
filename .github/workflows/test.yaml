@@ -6,7 +6,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runs: [ubuntu-ml-gpu, ubuntu-ci-64cpu]
+        runs: [ubuntu-latest] #[ubuntu-ml-gpu, ubuntu-ci-64cpu]
     runs-on: ${{ matrix.runs }}
     steps:
     - uses: actions/checkout@v2
