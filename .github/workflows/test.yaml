@@ -2,6 +2,17 @@ name: CI
 on: [push, workflow_dispatch]
 
 jobs:
+  see-payload:
+    runs-on: ubuntu-latest
+    steps:
+    - name: write payload
+      run: |
+        cat $GITHUB_EVENT_PATH > payload.json
+    - name: Upload payload
+      uses: actions/upload-artifact@v1
+      with:
+        name: payload
+        path: payload.json
   demo:
     strategy:
       fail-fast: false
