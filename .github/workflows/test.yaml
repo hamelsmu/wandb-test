@@ -34,14 +34,6 @@ jobs:
         WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
         DEBUG: 'true'
 
-    - name: See metrics
-      run: cat wandb_report.csv
-
-    - name: See PR Number
-      run: echo "PR number is $PRNUM"
-      env: 
-        PRNUM: "${{ github.event.pull_request.number }}"
-
     - name: display statistics
       if: steps.wandb.outputs.BOOL_COMPLETE == 'true'
       run: |
