@@ -15,7 +15,8 @@ jobs:
         path: payload.json
 
     - name: look at stuff
-      env: echo $STUFF
+      run: echo $STUFF
+      env: 
         STUFF: ${{ github.event.pull_request }}
   demo:
     strategy:
