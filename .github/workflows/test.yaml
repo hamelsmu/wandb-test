@@ -13,6 +13,10 @@ jobs:
       with:
         name: payload
         path: payload.json
+
+    - name: look at stuff
+      env: echo $STUFF
+        STUFF: ${{ github.event.pull_request }}
   demo:
     strategy:
       fail-fast: false
