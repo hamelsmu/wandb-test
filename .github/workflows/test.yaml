@@ -17,7 +17,7 @@ jobs:
     - name: look at stuff
       run: echo $STUFF
       env: 
-        STUFF: "${{ github.event.pull_request }}"
+        STUFF: "${{ github.event.pull_request.number }}"
   demo:
     strategy:
       fail-fast: false
