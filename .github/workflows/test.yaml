@@ -2,22 +2,6 @@ name: CI
 on: [pull_request, workflow_dispatch]
 
 jobs:
-  see-payload:
-    runs-on: ubuntu-latest
-    steps:
-    - name: write payload
-      run: |
-        cat $GITHUB_EVENT_PATH > payload.json
-    - name: Upload payload
-      uses: actions/upload-artifact@v1
-      with:
-        name: payload
-        path: payload.json
-
-    - name: look at stuff
-      run: echo $STUFF
-      env: 
-        STUFF: "${{ github.event.pull_request.number }}"
   demo:
     strategy:
       fail-fast: false
@@ -56,12 +40,12 @@ jobs:
     - name: See PR Number
       run: echo "PR number is $PRNUM"
       env: 
-        PRNUM: ${{ github.event.pull_request.number }}
+        PRNUM: "${{ github.event.pull_request.number }}"
 
     - name: display statistics
       if: steps.wandb.outputs.BOOL_COMPLETE == 'true'
       run: |
         python _action/wandb_results.py
       env:
-        PR_NUM: ${{ github.event.pull_request.number }}
+        PR_NUM: "${{ github.event.pull_request.number }}"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
